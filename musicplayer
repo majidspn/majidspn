@@ -1,0 +1,46 @@
+from tkinter import *
+from tkinter import filedialog
+from pygame import*
+
+root=Tk()
+root.title("Music Player")
+root.geometry("450x250")
+
+def load():
+    res=filedialog.askopenfilename()
+    mixer.init()
+    mixer.music.load(res)
+
+def play():
+    mixer.music.play()
+
+def stop():
+    mixer.music.pause()
+
+def resume():
+    mixer.music.unpause()
+
+def changevol(value):
+    vol=int(value)/10
+    mixer.music.set_volume(vol)
+
+
+load_button=Button(root,text="load music",width=10,height=3,bg="yellow",command=load)
+play_button=Button(root,text="play",width=10,height=3,bg="pink",command=play)
+stop_button=Button(root,text="stop",width=10,height=3,bg="green",command=stop)
+resume_button=Button(root,text="resume",width=10,height=3,bg="blue",command=resume)
+exit_button=Button(root,text="Exit",width=10,height=3,bg="red",command=root.destroy)
+vol=5
+
+mixer.init()
+w=Scale(root,from_=0,to=10,orient=HORIZONTAL,command=changevol)
+w.set(vol)
+
+#grid
+load_button.grid(row=0,column=0,padx=5,pady=50)
+play_button.grid(row=0,column=1,padx=5,pady=50)
+stop_button.grid(row=0,column=2,padx=5,pady=50)
+resume_button.grid(row=0,column=3,padx=5,pady=50)
+exit_button.grid(row=0,column=4,padx=5,pady=50)
+w.grid(row=1,column=2)
+mainloop()
