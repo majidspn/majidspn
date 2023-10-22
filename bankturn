@@ -1,0 +1,67 @@
+from tkinter import *
+from datetime import datetime
+#functions-------------------------
+
+def getturn():
+    global k,turnlist,turn
+    turnlist.append(k)
+
+    turn.destroy()
+    turn=Toplevel()
+    turn.geometry("200x200")
+    turn.title("fish")
+    lb1turn=Label(turn,text="you turn is :"+str(k))
+    lb1turn.grid()
+    
+    dt=datetime.now()
+    lb2turn=Label(turn,text=f"{dt.year}/{dt.month}/{dt.day}")
+    lb2turn.grid()
+    lb3turn=Label(turn,text=f"{dt.hour}:{dt.minute}:{dt.second}")
+    lb3turn.grid()
+    k=k+1
+
+def biabaje(u):
+    k=turnlist[0]
+    turnlist.pop(0)
+    if u==1:
+        lb1baje.config(text=str(k))
+    elif u==2:
+        lb2baje.config(text=str(k))
+    elif u==3:
+        lb3baje.config(text=str(k))
+
+
+#----------------------------------
+
+root=Tk()
+root.geometry("200x200")
+root.title("get turn")
+
+k=1
+turnlist=[]
+
+bt1=Button(root,text="get turn",width=28,height=6,fg="white",bg="green",command=getturn)
+bt2=Button(root,text="exit",width=28,height=6,fg="white",bg="red",command=root.destroy)
+bt1.grid()
+bt2.grid()
+
+turn=Toplevel()
+turn.withdraw()
+
+baje=Toplevel()
+
+bt1baje=Button(baje,text="baje 1",bg="green",fg="white",width=20,height=4,command=lambda:biabaje(1))
+bt2baje=Button(baje,text="baje 2",bg="green",fg="white",width=20,height=4,command=lambda:biabaje(2))
+bt3baje=Button(baje,text="baje 3",bg="green",fg="white",width=20,height=4,command=lambda:biabaje(3))
+
+lb1baje=Label(baje,text="0",bg="pink",width=20,height=4)
+lb2baje=Label(baje,text="0",bg="pink",width=20,height=4)
+lb3baje=Label(baje,text="0",bg="pink",width=20,height=4)
+
+bt1baje.grid(row=0,column=0)
+bt2baje.grid(row=0,column=1)
+bt3baje.grid(row=0,column=2)
+lb1baje.grid(row=1,column=0)
+lb2baje.grid(row=1,column=1)
+lb3baje.grid(row=1,column=2)
+mainloop()
